@@ -1,0 +1,2 @@
+class Abalone < ApplicationRecord
+end
