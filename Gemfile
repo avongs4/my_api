@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 2.1"
+gem 'pg', group: :production
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -19,6 +19,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+
+gem 'redis'
+
+gem "rack-cors"
+
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -54,3 +60,11 @@ gem "doorkeeper", "~> 5.8"
 
 gem 'kaminari'
 
+
+gem "rswag", "~> 2.16"
+
+gem "rspec-rails", "~> 7.1"
+
+gem "rswag-api", "~> 2.16"
+gem "rswag-ui", "~> 2.16"
+gem "rswag-specs", "~> 2.16"
