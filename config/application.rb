@@ -15,6 +15,9 @@ module MyApi
 
     config.middleware.use ActionDispatch::Flash
 
+    # config.assets.initialize_on_precompile = false
+
+
     config.api_only = true
 
     # ✅ Move Rack::Cors inside the class block

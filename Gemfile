@@ -69,5 +69,5 @@ gem "rspec-rails", "~> 7.1"
 gem "rswag-api", "~> 2.16"
 gem "rswag-ui", "~> 2.16"
 gem "rswag-specs", "~> 2.16"
-gem 'sprockets-rails'
+# gem 'sprockets-rails'
 
