@@ -2,19 +2,66 @@
 ***
 
 ## Task
-TODO - What is the problem? And where is the challenge?
+My API is designed to provide a RESTful interface for managing and retrieving data about animals\abalone. The main challenge was handling large datasets efficiently while ensuring secure authentication and smooth data access.
 
 ## Description
-TODO - How have you solved the problem?
+This project is a Ruby on Rails-based API that supports CRUD operations on a large dataset. It includes user authentication via Devise and OAuth token-based authentication using Doorkeeper for optimized performance. Pagination is implemented to handle large datasets, ensuring efficient data retrieval.
 
 ## Installation
-TODO - How to install your project? npm install? make? make re?
+To install and set up My API, follow these steps:
+1. Clone the repository: git clone https://github.com/your-username/my_api.git
+cd my_api
+
+2. Install dependencies: bundle install
+
+3. Set up the database: rails db:create db:migrate db:seed
+
+4. Start the Rails server: rails s
 
 ## Usage
-TODO - How does it work?
-```
-./my_project argument1 argument2
-```
+
+To use the API, you need to authenticate and make HTTP requests.
+
+Authentication
+
+Obtain an OAuth token:
+curl -X POST http://localhost:3000/oauth/token \
+  -d "grant_type=password&email=user@example.com&password=yourpassword"
+
+  Fetching Paginated Data
+ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:3000/abalones?page=1
+
+ Creating a Record
+ curl -X POST http://localhost:3000/api/v1/animals \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Lion", "category": "Mammal"}'
+
+  Updating a Record
+  curl -X PUT http://localhost:3000/api/v1/animals/1 \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Updated Name"}'
+
+  Deleting a Record
+  curl -X DELETE http://localhost:3000/api/v1/animals/1 \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+
+  API Documentation
+
+You can access the API documentation via Postman:
+http://localhost:3000/api-docs
+
+Deployment
+
+To deploy on Render, ensure the following environment variables are set:
+. RAILS_ENV=production
+. DATABASE_URL=your_render_database_url
+. SECRET_KEY_BASE=your_secret_key
+. PORT=10000
+
+Then, follow the deployment steps outlined in the Render setup.
+
 
 ### The Core Team
 
