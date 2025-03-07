@@ -38,7 +38,7 @@ require "action_controller/railtie" # Enables ActionController in API mode
 require "active_record/railtie"
 require "action_mailer/railtie"
 require "active_job/railtie"
-require "action_cable/engine"
+# require "action_cable/engine"
 
 
 # Require the gems listed in Gemfile, including any gems
