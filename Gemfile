@@ -37,7 +37,7 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 8.0.1"
+gem "rails", "~> 8.0.2"
 gem "pg"
 
 gem "puma", ">= 6.0"
