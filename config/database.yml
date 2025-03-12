@@ -1,159 +1,51 @@
-# default: &default
-#   adapter: postgresql
-#   encoding: unicode
-#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-# development:
-#   <<: *default
-#   database: my_api_development
-#   username: myapp
-#   password: <%= ENV.fetch("MY_API_DEVELOPMENT_PASSWORD", "avongs") %>
-#   host: localhost
-
-# test:
-#   <<: *default
-#   database: my_api_test
-#   username: myapp
-#   password: <%= ENV.fetch("MY_API_TEST_PASSWORD", "avongs") %>
-#   host: localhost
-
-# production:
-#   primary:
-#     <<: *default
-#     database: my_api_production
-#     username: <%= ENV["DATABASE_USER"] %>
-#     password: <%= ENV["avongs"] %>
-#     host: <%= ENV["DATABASE_HOST"] %>
-#     port: <%= ENV["DATABASE_PORT"] || 5432 %>
-
-#   cable:
-#     <<: *default
-#     database: my_api_production_cable
-#     username: <%= ENV["DATABASE_USER"] %>
-#     password: <%= ENV["avongs"] %>
-#     host: <%= ENV["DATABASE_HOST"] %>
-#     port: <%= ENV["DATABASE_PORT"] || 5432 %>
-
-
-
-
-
-
-
-
-
-
-
-
-# # # PostgreSQL. Versions 9.3 and up are supported.
-# # #
-# # # Install the pg driver:
-# # #   gem install pg
-# # # On macOS with Homebrew:
-# # #   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-# # # On Windows:
-# # #   gem install pg
-# # #       Choose the win32 build.
-# # #       Install PostgreSQL and put its /bin directory on your path.
-# # #
-# # # Configure Using Gemfile
-# # # gem "pg"
-
-# # default: &default
-# #   adapter: postgresql
-# #   encoding: unicode
-# #   # For details on connection pooling, see Rails configuration guide
-# #   # https://guides.rubyonrails.org/configuring.html#database-pooling
-# #   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-# # development:
-# #   <<: *default
-# #   database: my_api_development
-# #   username:  myapp
-# #   password: <%= ENV.fetch("MY_API_DEVELOPMENT_PASSWORD", "avongs") %>
-# #   host: localhost
-# #   # port: 5432 # Uncomment if using a custom port
-
-
-# # test:
-# #   <<: *default
-# #   database: my_api_test
-# #   username:  myapp
-# #   password: <%= ENV.fetch("MY_API_TEST_PASSWORD", "avongs") %>
-# #   host: localhost
-
-
-# # # production:
-# # #   <<: *default
-# # #   database: my_api_production
-# # #   username: myapp
-# # #   password: <%= ENV.fetch("MY_API_PRODUCTION_PASSWORD", "avongs") %>
-# # #   host: localhost
-
-# # production:
-# #   <<: *default
-# #   database: my_api_production
-# #   username: <%= ENV["DATABASE_USER"] %>
-# #   password: <%= ENV["DATABASE_PASSWORD"] %>
-# #   host: <%= ENV["DATABASE_HOST"] %>
-# #   port: <%= ENV["DATABASE_PORT"] || 5432 %>
-
-
-
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
 
 development:
   <<: *default
   database: my_api_development
-  username: myapp
+  username: <%= ENV.fetch("DATABASE_USER", "myapp") %>
   password: <%= ENV.fetch("MY_API_DEVELOPMENT_PASSWORD", "avongs") %>
   host: localhost
 
 test:
   <<: *default
   database: my_api_test
-  username: myapp
+  username: <%= ENV.fetch("DATABASE_USER", "myapp") %>
   password: <%= ENV.fetch("MY_API_TEST_PASSWORD", "avongs") %>
   host: localhost
 
 production:
-  primary:
-    <<: *default
-    database: <%= ENV["DATABASE_NAME"] || "my_api_production" %>
-    username: <%= ENV["DATABASE_USER"] || "myapp" %>
-    password: <%= ENV["DATABASE_PASSWORD"] || "avongs" %>
-    host: <%= ENV["DATABASE_HOST"] || "localhost" %>
-    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-    
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "my_api_db_ovap") %>
+  username: <%= ENV.fetch("DATABASE_USER", "my_api_db_ovap_user") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "0L6HoUbe5YNy06gIsyRq3KHkw2aixwmp") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "dpg-cv05tpq3esus73e5e4t0-a.oregon-postgres.render.com") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  pool: 5
 
-  cable:
-    <<: *default
-    database: <%= ENV["CABLE_DATABASE_NAME"] || "my_api_production_cable" %>
-    username: <%= ENV["DATABASE_USER"] || "myapp" %>
-    password: <%= ENV["DATABASE_PASSWORD"] || "avongs" %>
-    host: <%= ENV["DATABASE_HOST"] || "localhost" %>
-    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-    
+cable:
+  <<: *default
+  database: <%= ENV.fetch("CABLE_DATABASE_NAME", "#{ENV["DATABASE_NAME"]}_cable") %>
+  username: <%= ENV.fetch("DATABASE_USER") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
 
+queue:
+  <<: *default
+  database: <%= ENV.fetch("QUEUE_DATABASE_NAME", "#{ENV["DATABASE_NAME"]}_queue") %>
+  username: <%= ENV.fetch("DATABASE_USER") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
 
-  queue:
-    <<: *default
-    database: <%= ENV["CABLE_DATABASE_NAME"] || "my_api_production_queue" %>
-    username: <%= ENV["DATABASE_USER"] || "myapp" %>
-    password: <%= ENV["DATABASE_PASSWORD"] || "avongs" %>
-    host: <%= ENV["DATABASE_HOST"] || "localhost" %>
-    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-    
-
-
-  cache:
-    <<: *default
-    database: <%= ENV["CABLE_DATABASE_NAME"] || "my_api_production_cache" %>
-    username: <%= ENV["DATABASE_USER"] || "myapp" %>
-    password: <%= ENV["DATABASE_PASSWORD"] || "avongs" %>
-    host: <%= ENV["DATABASE_HOST"] || "localhost" %>
-    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-    
+cache:
+  <<: *default
+  database: <%= ENV.fetch("CACHE_DATABASE_NAME", "#{ENV["DATABASE_NAME"]}_cache") %>
+  username: <%= ENV.fetch("DATABASE_USER") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>

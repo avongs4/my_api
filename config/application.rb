@@ -1,14 +1,12 @@
 
 require_relative "boot"
 
-
 require "rails"
 require "action_controller/railtie" # Enables ActionController in API mode
 require "active_record/railtie"
 require "action_mailer/railtie"
 require "active_job/railtie"
 # require "action_cable/engine"
-
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -22,13 +20,19 @@ module MyApi
     # Enable API-only mode (disables views, assets, and other middleware)
     config.api_only = true
 
-    # ✅ Ensure CORS is set up correctly for cross-origin requests
+    # ✅ Secure CORS Configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*' # Allow requests from any domain
-        resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
+        origins ENV.fetch("CORS_ALLOWED_ORIGINS", "*") # Restrict in production
+        resource "*", headers: :any, methods: %i[get post put delete options]
       end
     end
+
+    # ✅ Ensure Sidekiq is used for background jobs
+    config.active_job.queue_adapter = :sidekiq
+
+    # ✅ Optimize middleware for API-only
+    config.middleware.delete ActionDispatch::Static
+    config.middleware.delete Rack::Sendfile
   end
 end
-
