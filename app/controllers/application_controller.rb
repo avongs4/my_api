@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::API
-    include Doorkeeper::Helpers::Filter  # 👈 Add this to ensure doorkeeper is loaded
+    before_action :doorkeeper_authorize!  # ✅ This is the correct way to apply Doorkeeper
   end
   
