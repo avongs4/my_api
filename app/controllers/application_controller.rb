@@ -1,2 +1,4 @@
 class ApplicationController < ActionController::API
-end
+    include Doorkeeper::Helpers::Filter  # 👈 Add this to ensure doorkeeper is loaded
+  end
+  
