@@ -2,8 +2,11 @@ Doorkeeper.configure do
   orm :active_record
 
   resource_owner_authenticator do
-    User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+  #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+  # end
+    User.find_by(id: session[:user_id]) || nil  # Allow unauthenticated users
   end
+  
 
   resource_owner_from_credentials do |_routes|
     user = User.find_for_authentication(email: params[:username])
