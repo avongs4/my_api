@@ -1,12 +1,6 @@
-
 require_relative "boot"
 
-require "rails"
-require "action_controller/railtie" # Enables ActionController in API mode
-require "active_record/railtie"
-require "action_mailer/railtie"
-require "active_job/railtie"
-# require "action_cable/engine"
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,22 +11,22 @@ module MyApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
-    # Enable API-only mode (disables views, assets, and other middleware)
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+
+    # Only loads a smaller set of middleware suitable for API only apps.
+    # Middleware like session, flash, cookies can be added back manually.
+    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # ✅ Secure CORS Configuration
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins ENV.fetch("CORS_ALLOWED_ORIGINS", "*") # Restrict in production
-        resource "*", headers: :any, methods: %i[get post put delete options]
-      end
-    end
-
-    # ✅ Ensure Sidekiq is used for background jobs
-    config.active_job.queue_adapter = :sidekiq
-
-    # ✅ Optimize middleware for API-only
-    config.middleware.delete ActionDispatch::Static
-    config.middleware.delete Rack::Sendfile
   end
 end

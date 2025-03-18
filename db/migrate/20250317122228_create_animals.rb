@@ -1,6 +1,14 @@
-class CreateAbalones < ActiveRecord::Migration[8.0]
+# class CreateAnimals < ActiveRecord::Migration[8.0]
+#   def change
+#     create_table :animals do |t|
+#       t.timestamps
+#     end
+#   end
+# end
+
+class CreateAnimals < ActiveRecord::Migration[7.0]
   def change
-    create_table :abalones do |t|
+    create_table :animals do |t|
       t.string :sex
       t.float :length
       t.float :diameter

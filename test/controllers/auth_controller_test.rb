@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AbaloneTest < ActiveSupport::TestCase
+class AuthControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

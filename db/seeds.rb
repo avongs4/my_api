@@ -1,17 +1,21 @@
 require 'csv'
 
-CSV.foreach(Rails.root.join('db', 'abalone.csv'), headers: true) do |row|
-  Abalone.create!(
-    sex: row['sex'],
-    length: row['length'].to_f,
-    diameter: row['diameter'].to_f,
-    height: row['height'].to_f,
-    whole_weight: row['whole_weight'].to_f,
-    shucked_weight: row['shucked_weight'].to_f,
-    viscera_weight: row['viscera_weight'].to_f,
-    shell_weight: row['shell_weight'].to_f,
-    rings: row['rings'].to_i
+# Path to the dataset file
+file_path = Rails.root.join('db', 'seeds', 'abalone.data')
+
+# Read and import data
+CSV.foreach(file_path, headers: false) do |row|
+  Animal.create!(
+    sex: row[0],
+    length: row[1],
+    diameter: row[2],
+    height: row[3],
+    whole_weight: row[4],
+    shucked_weight: row[5],
+    viscera_weight: row[6],
+    shell_weight: row[7],
+    rings: row[8]
   )
 end
 
-puts "Seeding completed successfully!"
+puts "✅ Seeding complete! #{Animal.count} records added."
