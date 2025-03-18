@@ -15,18 +15,24 @@ test:
   database: my_api_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV["DATABASE_URL"] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    database: my_api_production
+    username: <%= ENV['DATABASE_USERNAME'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+    pool: 10
 
   queue:
-    <<: *default
-    database: my_api_queue_production
-    username: <%= ENV.fetch('QUEUE_DB_USERNAME', 'my_api_user') %>
-    password: <%= ENV.fetch('QUEUE_DB_PASSWORD', 'my_api_password') %>
-    host: <%= ENV.fetch('QUEUE_DB_HOST', 'localhost') %>
+    adapter: postgresql
+    encoding: unicode
+    database: my_api_production
+    username: <%= ENV['DATABASE_USERNAME'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+    pool: 5
+
 
   cache:
     <<: *default
