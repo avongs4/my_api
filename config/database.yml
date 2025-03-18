@@ -24,14 +24,11 @@ test:
 #     <<: *default
 #     database: my_api_queue_production
 production:
-  primary:
-    adapter: postgresql
-    encoding: unicode
-    database: my_api_production
-    username: avongs
-    password: 123456
-    host: localhost
-    pool: 5
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: 5
+
 
   queue:
     adapter: postgresql
