@@ -14,36 +14,22 @@ test:
   <<: *default
   database: my_api_test
 
-# production:
-#   primary:
-#     <<: *default
-#     database: my_api_production
-#     url: <%= ENV['DATABASE_URL'] %>
-
-#   queue:
-#     <<: *default
-#     database: my_api_queue_production
 production:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV["DATABASE_URL"] %>
-  pool: 5
-
+  primary:
+    <<: *default
+    database: my_api_production
+    url: <%= ENV["DATABASE_URL"] %>
 
   queue:
-    adapter: postgresql
-    encoding: unicode
-    database: my_api_queue
-    username: my_api_user
-    password: my_api_password
-    host: localhost
-    pool: 5
+    <<: *default
+    database: my_api_queue_production
+    username: <%= ENV.fetch('QUEUE_DB_USERNAME', 'my_api_user') %>
+    password: <%= ENV.fetch('QUEUE_DB_PASSWORD', 'my_api_password') %>
+    host: <%= ENV.fetch('QUEUE_DB_HOST', 'localhost') %>
 
   cache:
-    adapter: postgresql
-    encoding: unicode
-    database: my_api_cache
-    username: my_api_user
-    password: my_api_password
-    host: localhost
-    pool: 5
+    <<: *default
+    database: my_api_cache_production
+    username: <%= ENV.fetch('CACHE_DB_USERNAME', 'my_api_user') %>
+    password: <%= ENV.fetch('CACHE_DB_PASSWORD', 'my_api_password') %>
+    host: <%= ENV.fetch('CACHE_DB_HOST', 'localhost') %>
