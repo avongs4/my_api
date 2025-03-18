@@ -19,6 +19,8 @@ test:
   host: localhost
 
 production:
-  <<: *default
-  database: my_api_production
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   url: <%= ENV['DATABASE_URL'] %>
+
