@@ -14,7 +14,39 @@ test:
   <<: *default
   database: my_api_test
 
+# production:
+#   primary:
+#     <<: *default
+#     database: my_api_production
+#     url: <%= ENV['DATABASE_URL'] %>
+
+#   queue:
+#     <<: *default
+#     database: my_api_queue_production
 production:
-  <<: *default
-  database: my_api_production
-  url: <%= ENV['DATABASE_URL'] %>
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    database: my_api_production
+    username: avongs
+    password: 123456
+    host: localhost
+    pool: 5
+
+  queue:
+    adapter: postgresql
+    encoding: unicode
+    database: my_api_queue
+    username: my_api_user
+    password: my_api_password
+    host: localhost
+    pool: 5
+
+  cache:
+    adapter: postgresql
+    encoding: unicode
+    database: my_api_cache
+    username: my_api_user
+    password: my_api_password
+    host: localhost
+    pool: 5
