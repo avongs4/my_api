@@ -6,6 +6,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  
 
 
 # development:
@@ -38,11 +39,9 @@ test:
 
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: my_api_production
-    username: my_api
-    password: <%= ENV["MY_API_DATABASE_PASSWORD"] %>
+  <<: *default
+  database: my_api_production
+  url: <%= ENV['DATABASE_URL'] %>
   cache:
     <<: *primary_production
     database: my_api_production_cache
