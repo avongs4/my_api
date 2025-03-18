@@ -15,10 +15,11 @@ test:
   database: my_api_test
 
 production:
-  primary:
-    <<: *default
-    database: my_api_production
-    url: <%= ENV["DATABASE_URL"] %>
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
 
   queue:
     <<: *default
