@@ -15,14 +15,10 @@ test:
   database: my_api_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: my_api_production
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   pool: 10
-  queue: primary  # Ensures Solid Queue uses the primary database
+
 
 
 
