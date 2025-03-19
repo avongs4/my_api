@@ -244,6 +244,10 @@ GEM
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    solid_cache (1.0.7)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     sshkit (1.24.0)
       base64
       logger
@@ -288,6 +292,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.1)
   rubocop-rails-omakase
+  solid_cache
   thruster
   tzinfo-data
   will_paginate
