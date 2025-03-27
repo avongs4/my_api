@@ -50,10 +50,12 @@ Use the returned access_token in requests:
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:3000/api/v1/animals
 
 Documentation
-Postman Collection: Postman Link
+Postman Collection:
+Link: https://documenter.getpostman.com/view/42435242/2sAYkKHcsr
 
 Deployment
 My API is deployed on Render and can be accessed here: https://my-api-zepr.onrender.com
+
 
 The Core Team
 Avong Haruna
